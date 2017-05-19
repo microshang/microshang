@@ -35,11 +35,12 @@
     ```
 > 如果不需要填充测试数据，则后面的 --seed 选项可省略
 
-7.运行
+6. 运行
+
     ```shell
     php artisan serve
     ```
-
+    
 ## 二次开发
 
 本项目使用 Laravel 5.4 配套的 Laravel-mix 整合前端资源，因此需要有一个可用的 node.js 环境，包括 npm 等。
