@@ -54,7 +54,7 @@
 2. 运行 npm watch 命令监听变化
 
     ```shell
-    npm watch
+    npm run watch
     ```
 
 ## 贡献代码
