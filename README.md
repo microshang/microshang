@@ -40,7 +40,26 @@
     ```shell
     php artisan serve
     ```
-    
+
+## docker开发环境
+
+安装
+```bash
+docker-compose up --build -d
+```
+
+重启\开启\关闭
+```bash
+docker-compose restart
+docker-compose start
+docker-compose stop
+```
+
+查看运行日志
+```bash
+docker-compose logs -t
+```
+
 ## 二次开发
 
 本项目使用 Laravel 5.4 配套的 Laravel-mix 整合前端资源，因此需要有一个可用的 node.js 环境，包括 npm 等。

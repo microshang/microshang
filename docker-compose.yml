@@ -1,0 +1,46 @@
+version: '2'
+services:
+    mysql:
+        build: ./docker/mysql
+        ports:
+            #- "3306:3306"
+            # 开发环境用其它端口
+            - "3308:3306"
+        volumes:
+            - ./storage/docker/mysql/data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+    nginx:
+        # 依赖php服务，意味着在启动nginx之前先启动php 
+        depends_on:
+            - php
+        links:
+            - php
+        # nginx镜像的路径
+        build: ./docker/nginx
+        environment:
+            - TZ=Asia/Shanghai
+        volumes:
+            - ./storage/docker/nginx/nginx_logs:/var/log/nginx
+        volumes_from:
+            - php
+        # nginx意外退出时自动重启
+        restart: always
+        # 映射80和443端口
+        ports:
+            - "9080:80"
+    php:
+        build: ./docker/php/5.7/
+        environment:
+            - TZ=Asia/Shanghai
+        restart: always
+        links:
+            - "mysql"
+        volumes:
+            - .:/data/www:rw
+            - ./docker/app/.env:/data/www/.env:ro
+            - ./resources/assets/:/data/www/public/assets/:ro
+            - ./storage/app/public/data/:/data/www/public/data/:rw
+            - ./storage/docker/php/logs/:/var/log/:rw
+        expose:
+            - "9000"
